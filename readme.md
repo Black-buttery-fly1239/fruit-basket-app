@@ -1,3 +1,6 @@
+[![Build Status](https://app.travis-ci.com/Black-buttery-fly1239/fruit-basket-app.svg?branch=main)](https://app.travis-ci.com/Black-buttery-fly1239/fruit-basket-app)
+
+
 # Fruit baskets on order
 
 Samuel has been selling fruit in Cape Town central for years. Due to the changing client behaviour during the COVID-19 pandemic he started to sell variety fruit baskets on pre-orders. Clients will SMS him with the fruits they want in their baskets which his cousin then delivers with his motor bike.

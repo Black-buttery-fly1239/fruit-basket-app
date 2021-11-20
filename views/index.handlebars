@@ -1,7 +1,23 @@
 
 <div>
-	<a href="/add_basket">Add basket</a>
+	<a href="/basket/add">Add basket</a>
 </div>
 
 <h2>Baskets</h2>
+<table>
+	<tr>
+		<th>Basket Name</th>
+		<th>Qty</th>
+		<th>Total Cost</th>
+	</tr>
+
+	{{#each fruit}}
+	<tr>
+		<td>{{fruit_name}}</td>
+		<td> 
+			<a href = "/basket/edit">Edit</a>
+		</td>
+	</tr>
+	{{/each}}
+</table>
 
