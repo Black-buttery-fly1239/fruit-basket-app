@@ -1,14 +1,13 @@
 language: node_js
-
 node_js:
-  - 14
-
-env:
-  - DATABASE_URL=postgresql://postgres@localhost:5432/my_fruit_basket_app_tests
-
-before_script:
-  - psql -c 'create database  my_fruit_basket_app_tests;' -U postgres
-  - psql -U postgres -d my_fruit_basket_app_tests -a -f users.sql 
+  - 10
 
 services:
   - postgresql
+  
+env:
+  - DATABASE_URL=postgresql://postgres@localhost:5432/my_fruit_baskets_app
+
+before_script:
+  - psql -c 'create database  my_fruit_baskets_app' -U postgres
+  - psql -U postgres -d my_fruit_baskets_app -a -f basket.sql
