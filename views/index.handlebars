@@ -7,15 +7,16 @@
 <table>
 	<tr>
 		<th>Basket Name</th>
-		<th>Qty</th>
 		<th>Total Cost</th>
+		<th></th>
 	</tr>
 
-	{{#each fruit}}
+	{{#each baskets}}
 	<tr>
-		<td>{{fruit_name}}</td>
+		<td>{{description}}</td>
+		<td></td>
 		<td> 
-			<a href = "/basket/edit">Edit</a>
+			<a href = "/basket/edit/{{id}}">Edit</a>
 		</td>
 	</tr>
 	{{/each}}

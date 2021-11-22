@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - 10
+  - 14
 
 services:
   - postgresql
@@ -10,4 +10,5 @@ env:
 
 before_script:
   - psql -c 'create database  my_fruit_baskets_app' -U postgres
-  - psql -U postgres -d my_fruit_baskets_app -a -f sql
+  - psql -U postgres -d my_fruit_baskets_app -a -f sql/create-table.sql
+  - psql -U postgres -d my_fruit_baskets_app -a -f sql/insert-data.sql

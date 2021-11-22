@@ -1,20 +1,21 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const FruitBasket = require("./fruit-basket-service");
+require('dotenv').config()
 
 const pg = require("pg");
 const Pool = pg.Pool;
 
 const app = express();
 
-let useSSL = false;
-// eslint-disable-next-line no-undef
-const local = process.env.LOCAL || false;
-// eslint-disable-next-line no-undef
-if (process.env.DATABASE_URL && !local) {
-	// eslint-disable-next-line no-unused-vars
-	useSSL = true;
-}
+// let useSSL = false;
+// // eslint-disable-next-line no-undef
+// const local = process.env.LOCAL || false;
+// // eslint-disable-next-line no-undef
+// if (process.env.DATABASE_URL && !local) {
+// 	// eslint-disable-next-line no-unused-vars
+// 	useSSL = true;
+// }
 
 const connectionString = process.env.DATABASE_URL || "postgresql://codex:codex123@localhost:5432/my_fruit_baskets_app";
 
@@ -45,22 +46,59 @@ let counter = 0;
 
 app.get('/', async function (req, res) {
 
-
+	const baskets = await fruitBasket.listBaskets()
 	res.render('index', {
-		counter
+		baskets
 	});
+	//console.log(listBaskets())
 });
 
 app.get('/basket/add', function (req, res) {
 	res.render('basket/add');
 });
 
-app.get('/basket/edit', function (req, res) {
-	res.render('basket/edit');
+app.get('/basket/edit/:id', async function (req, res) {
+	const basketId = req.params.id;
+	const basket = await fruitBasket.getBasket(basketId);
+	const fruits = await fruitBasket.listFruits();
+	const basketItems = await fruitBasket.getBasketItems(basketId)
+	res.render('basket/edit', {
+		basket,
+		fruits,
+		basketItems
+	});
 });
 
-app.post('/basket/add', function(req,res){
-	console.log(req.body.basket_name)
+app.post('/basket/update/:id', async function (req, res) {
+    console.log(req.body)
+
+	const basketId = req.params.id;
+	const qty = req.body.qty;
+	const fruit_id = req.body.fruit_id;
+
+	await fruitBasket.addFruitToBasket(basketId, fruit_id, qty)
+
+	res.redirect(`/basket/edit/${basketId}`)
+// })
+	// const basket = await fruitBasket.getBasket(basketId);
+	// const fruits = await fruitBasket.listFruits();
+	// res.render('basket/edit', {
+	// 	basket,
+	// 	fruits
+	// });
+});
+
+app.post('/basket/add', async function(req,res){
+
+	// console.log(req.body)
+	try{
+		await fruitBasket.createBasket(req.body.fruit_name);
+	}catch (err){
+		console.log(err)
+	}
+		
+
+
 	res.redirect('/')
 })
 

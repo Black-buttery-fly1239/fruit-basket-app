@@ -6,7 +6,7 @@ module.exports = function(pool) {
 		if (result.rows) {
 			return result.rows[0].id;
 		}
-		return null;
+		// return null;
 	}
 
 	async function addFruitToBasket(fruitId, basketId, qty) {
@@ -26,7 +26,7 @@ module.exports = function(pool) {
 	}
 
 	async function listFruits() {
-		const selectFruitsSQL = `select * from fruit`;
+		const selectFruitsSQL = `select * from fruit order by name asc`;
 		const result = await pool.query(selectFruitsSQL)
 		return result.rows;
 	}
@@ -34,7 +34,8 @@ module.exports = function(pool) {
 	async function listBaskets() {
 		const selectBasketsSQL = `select * from basket`;
 		const result = await pool.query(selectBasketsSQL)
-		return result.rows;
+		const results =  result.rows;
+		return results
 	}
 
 	async function getBasket(basketId) {
